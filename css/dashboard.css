@@ -1,0 +1,752 @@
+/* ==================================== */
+/* 1. ROOT VARIABLES (Light Mode Default) & Dark Mode Overrides */
+/* ==================================== */
+:root {
+  /* Base Colors (Default: Light Mode) */
+  --primary: #000000; /* Black (Main Text, Borders) */
+  --secondary: #ffffff; /* White (Container/Header BG, Input BG) */
+  --accent: #ff5e5b; /* Red/Pink Accent (Primary Button, Links) */
+  --background: #e8e8e8; /* Body background (Lighter part of gradient) */
+  --light-gray: #f5f5f5; /* Card BG/Input BG (Lighter gray part of gradient) */
+  --dark-gray: #333333; /* Dark Text (Secondary Text) */
+  --shadow-color: var(--primary); /* Shadow color (Black in light mode) */
+
+  --shadow: 8px 8px 0px var(--shadow-color);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+/* DARK MODE OVERRIDES */
+html[data-theme="dark"] {
+  /* Dark Mode Variables */
+  --primary: #ffffff; /* White */
+  --secondary: #1e1e1e; /* Dark Gray (Container/Header BG) */
+  --background: #121212; /* Very Dark Body */
+  --light-gray: #333333; /* Darker Card BG/Input BG */
+  --dark-gray: #bbbbbb; /* Lighter Text */
+  --shadow-color: #000000; /* Black Shadow for contrast */
+}
+
+/* ==================================== */
+/* 2. GLOBAL STYLES */
+/* ==================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+}
+
+body {
+  /* Background and color handled by the combined body/html[data-theme='dark'] selector */
+  background: linear-gradient(
+    135deg,
+    var(--light-gray) 0%,
+    var(--background) 100%
+  );
+  min-height: 100vh;
+  color: var(--primary);
+  padding: 0; /* Changed from 1rem to 0 for full-width header */
+}
+
+/* Apply dark background gradient */
+html[data-theme="dark"] body {
+  background: linear-gradient(135deg, var(--background) 0%, #1c1c1c 100%);
+  color: var(--primary);
+}
+
+/* ==================================== */
+/* 3. HEADER & USER INFO (Dashboard View) */
+/* ==================================== */
+
+header {
+  background-color: var(--secondary);
+  border-bottom: 3px solid var(--primary);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 0px var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] header {
+  border-bottom-color: var(--primary);
+  box-shadow: 0 4px 0px var(--shadow-color);
+}
+
+.logo {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: bold;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: bold;
+}
+
+#userEmail {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.user-info button {
+  padding: 0.5rem 1rem;
+  background-color: var(--accent);
+  color: var(--secondary);
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.user-info button:hover {
+  background-color: var(--primary);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--dark-gray);
+}
+
+/* Dark Mode Overrides for User Info */
+html[data-theme="dark"] .user-info button:hover {
+  box-shadow: 4px 4px 0px var(--shadow-color);
+}
+
+/* ==================================== */
+/* 4. DASHBOARD LAYOUT & CAPSULE GRID */
+/* ==================================== */
+
+.dashboard-main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Creation CTA Section */
+.creation-cta {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: var(--secondary);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: var(--transition); /* Added transition */
+}
+
+.creation-cta::before {
+  content: "✨";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--secondary);
+  padding: 0 1rem;
+  font-size: 1.5rem;
+}
+
+/* Capsule Grid Section */
+.capsule-grid-container {
+  background-color: var(--secondary);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition); /* Added transition */
+}
+
+.capsule-grid-container h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.capsule-grid-container h2::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 3px;
+  background-color: var(--accent);
+  margin: 0.5rem auto;
+}
+
+.capsule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+/* Placeholder for empty state */
+.capsule-grid:empty::after {
+  content: "🔒 No time capsules yet! Create your first one above.";
+  display: block;
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--dark-gray);
+  font-style: italic;
+  font-size: 1.1rem;
+  border: 2px dashed var(--dark-gray);
+  border-radius: var(--border-radius);
+  grid-column: 1 / -1;
+}
+
+/* Capsule Card Styles */
+.capsule-card {
+  background-color: var(--light-gray);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.capsule-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px var(--primary);
+}
+
+.capsule-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.capsule-card p {
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.capsule-card .open-date {
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* Dark Mode Overrides for Dashboard Content */
+html[data-theme="dark"] .creation-cta,
+html[data-theme="dark"] .capsule-grid-container {
+  background-color: var(--secondary);
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="dark"] .creation-cta::before {
+  background-color: var(--secondary);
+}
+
+html[data-theme="dark"] .capsule-card {
+  background-color: var(--light-gray);
+  border-color: var(--primary);
+}
+
+html[data-theme="dark"] .capsule-card:hover {
+  box-shadow: 6px 6px 0px var(--primary); /* White shadow on hover */
+}
+
+html[data-theme="dark"] .capsule-card p {
+  color: var(--dark-gray);
+}
+
+html[data-theme="dark"] .capsule-grid:empty::after {
+  color: var(--dark-gray);
+  border: 2px dashed var(--dark-gray);
+}
+
+/* ==================================== */
+/* 5. FORM STYLES (Create Capsule View) */
+/* ==================================== */
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto; /* Added margin for separation */
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--secondary);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius);
+  box-shadow: 6px 6px 0px var(--primary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  /* Animation settings */
+  animation: slideIn 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+label {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: "Courier New", monospace;
+  background-color: var(--secondary);
+  color: var(--primary);
+  transition: all 0.3s ease;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="datetime-local"]:focus,
+input[type="file"]:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 4px 4px 0px var(--accent);
+  transform: translate(-2px, -2px);
+  border-color: var(--accent);
+}
+
+input[type="text"]:hover,
+input[type="datetime-local"]:hover,
+textarea:hover {
+  box-shadow: 4px 4px 0px var(--accent);
+  transform: translate(-2px, -2px);
+}
+
+/* Dark Mode Overrides for Form */
+html[data-theme="dark"] .form-group {
+  box-shadow: 6px 6px 0px var(--shadow-color);
+}
+html[data-theme="dark"] input[type="text"],
+html[data-theme="dark"] input[type="datetime-local"],
+html[data-theme="dark"] textarea {
+  background-color: var(--light-gray); /* Darker background for inputs */
+  color: var(--primary);
+}
+
+/* ==================================== */
+/* 6. BUTTONS */
+/* ==================================== */
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* General Button Class */
+.btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none; /* For use on <a> or button */
+  display: inline-block; /* For use on <a> */
+}
+
+/* Primary Button (Accent Background) */
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--secondary);
+}
+
+/* Secondary Button (Default Background) */
+.btn-secondary {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px var(--primary);
+}
+
+/* Specific Hover Styles (Keep these concise) */
+.btn-primary:hover,
+.btn-secondary:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
+/* Dashboard CTA Button (Larger) */
+.btn-primary.dashboard-cta {
+  padding: 1rem 2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+/* Edit/Delete Small Buttons (From Dashboard View) */
+.btn-edit {
+  background: #ffcc00; /* Amber */
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-delete {
+  background: #e74c3c; /* Red */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+  box-shadow: 6px 6px 0px var(--dark-gray);
+}
+
+/* Dark Mode Overrides for Buttons */
+html[data-theme="dark"] .btn:hover {
+  box-shadow: 6px 6px 0px var(--shadow-color);
+}
+html[data-theme="dark"] .btn-primary:hover,
+html[data-theme="dark"] .btn-secondary:hover,
+html[data-theme="dark"] .btn-edit:hover,
+html[data-theme="dark"] .btn-delete:hover {
+  box-shadow: 6px 6px 0px var(--shadow-color);
+}
+
+/* ==================================== */
+/* 7. MESSAGES (Error/Success) */
+/* ==================================== */
+
+.error,
+.success {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 2px solid #c62828;
+}
+
+.success {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 2px solid #2e7d32;
+}
+
+/* ==================================== */
+/* 8. VISUAL TOGGLE SWITCH STYLES */
+/* ==================================== */
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-switch .slider {
+  cursor: pointer;
+  width: 50px;
+  height: 24px;
+  background-color: var(--dark-gray);
+  transition: var(--transition);
+  border-radius: 34px;
+  position: relative;
+  border: 2px solid var(--primary);
+  box-shadow: 2px 2px 0px var(--primary);
+}
+
+.theme-switch .slider:before {
+  position: absolute;
+  content: "🌙";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 0px;
+  background-color: var(--secondary);
+  color: #f4d03f;
+  transition: var(--transition);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+  content: "☀️";
+  color: #fff89d;
+}
+
+html[data-theme="dark"] .theme-switch .slider {
+  border-color: var(--primary);
+  box-shadow: 2px 2px 0px var(--shadow-color);
+  background-color: var(--light-gray);
+}
+
+html[data-theme="dark"] input:checked + .slider {
+  background-color: var(--accent);
+}
+
+/* ==================================== */
+/* 9. ANIMATIONS */
+/* ==================================== */
+
+.form-group:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.form-group:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.form-group:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.form-group:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================================== */
+/* 10. MEDIA QUERIES */
+/* ==================================== */
+
+@media (max-width: 768px) {
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dashboard-main {
+    padding: 1rem;
+  }
+
+  .creation-cta {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 6px 6px 0px var(--primary);
+  }
+
+  .capsule-grid-container {
+    padding: 1.5rem;
+    box-shadow: 6px 6px 0px var(--primary);
+  }
+
+  .capsule-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 4px 4px 0px var(--primary);
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    min-width: auto;
+  }
+
+  /* Smaller hover/focus effects for touchscreens */
+  input[type="text"]:hover,
+  input[type="datetime-local"]:hover,
+  textarea:hover,
+  input[type="text"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="file"]:focus,
+  textarea:focus {
+    box-shadow: 2px 2px 0px var(--accent);
+    transform: translate(-1px, -1px);
+  }
+
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px var(--primary);
+  }
+}
+
+@media (max-width: 480px) {
+  .creation-cta,
+  .capsule-grid-container,
+  header {
+    box-shadow: 4px 4px 0px var(--primary);
+  }
+
+  .form-group {
+    box-shadow: 3px 3px 0px var(--primary);
+  }
+
+  label {
+    font-size: 1.1rem;
+  }
+
+  .btn-primary {
+    padding: 0.875rem 1.5rem;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    padding: 0.25rem 0.9rem;
+  }
+}
+
+/* ==================================== */
+/* 7. MESSAGES (Error/Success) */
+/* ==================================== */
+
+/* New Alert Styling based on Tailwind/Modern design */
+
+.alert-container {
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.custom-alert {
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: 1px solid;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: var(--transition);
+}
+
+.alert-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.alert-content {
+  flex-grow: 1;
+}
+
+.alert-content strong {
+  display: block;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.alert-content p {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* 🟢 Success State */
+.alert-success {
+  background-color: #e6ffed; /* Light Green BG */
+  border-color: #38a169; /* Green Border */
+  color: #1a4731; /* Dark Green Text */
+}
+.alert-success .alert-icon {
+  color: #38a169; /* Green Icon */
+}
+
+/* 🔴 Error State */
+.alert-error {
+  background-color: #fef2f2; /* Light Red BG */
+  border-color: #ef4444; /* Red Border */
+  color: #991b1b; /* Dark Red Text */
+}
+.alert-error .alert-icon {
+  color: #ef4444; /* Red Icon */
+}
+
+/* Dismiss Button Styling (Optional, as JS will hide the container) */
+.alert-dismiss {
+  /* Style the dismiss button if you decide to keep it */
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: -4px; /* Pull it in slightly */
+  color: inherit;
+  transition: color 0.2s;
+}
+.alert-dismiss:hover {
+  color: var(--primary);
+}
+
+/* Dark Mode Overrides for Alerts */
+html[data-theme="dark"] .alert-success {
+  background-color: #1f3d2f; /* Darker Green BG */
+  border-color: #38a169;
+  color: #a7f3d0; /* Lighter Green Text */
+}
+html[data-theme="dark"] .alert-error {
+  background-color: #451a1a; /* Darker Red BG */
+  border-color: #ef4444;
+  color: #fecaca; /* Lighter Red Text */
+}
+
+.hidden {
+  display: none !important;
+}

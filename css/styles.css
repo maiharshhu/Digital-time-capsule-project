@@ -1,0 +1,358 @@
+:root {
+  /* Light Mode Variables (Default) */
+  --primary: #000000;
+  --secondary: #ffffff;
+  --accent: #ff5e5b;
+  --background: #e8e8e8;
+  --text-color: #333333;
+  --input-bg: #f5f5f5;
+  --shadow-color: #888888;
+  --placeholder-color: #888888;
+
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+}
+
+/* ==================================== */
+/* DARK MODE OVERRIDES */
+/* ==================================== */
+
+/* Dark Mode: When data-theme='dark' is set on the html tag */
+html[data-theme="dark"] {
+  --primary: #ffffff; /* Text/Border color */
+  --secondary: #1e1e1e; /* Container Background */
+  --background: #121212; /* Body Background */
+  --text-color: #f5f5f5; /* Light Text for paragraphs/footer */
+  --input-bg: #333333; /* Darker Input Background */
+  --shadow-color: #000000; /* Darker Shadow color */
+  --placeholder-color: #bbbbbb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+}
+
+body {
+  /* FIX: Use var(--background) for a smoother transition to dark mode */
+  background: linear-gradient(
+    135deg,
+    var(--background) 0%,
+    var(--background) 100%
+  );
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  /* FIX: Add transition to body for smooth background change */
+  transition: background var(--transition);
+}
+
+/* Animated background elements (Add dark mode override for consistency) */
+body::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    transparent 20%,
+    rgba(255, 94, 91, 0.05) 50%,
+    transparent 80%
+  );
+  animation: rotate 20s linear infinite;
+  z-index: -1;
+}
+
+html[data-theme="dark"] body::before {
+  background: radial-gradient(
+    circle,
+    transparent 20%,
+    rgba(233, 59, 59, 0.15) 50%,
+    transparent 80%
+  );
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-container {
+  background-color: var(--secondary);
+  border: 3px solid var(--primary);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  /* FIX: Use --shadow-color variable */
+  box-shadow: 8px 8px 0px var(--shadow-color);
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  transition: var(--transition);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-container::before {
+  content: "🔐";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--secondary);
+  padding: 0 1rem;
+  font-size: 2rem;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#register-view::before {
+  content: "📝";
+}
+
+h1,
+h2 {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  color: var(--primary); /* Correctly uses primary */
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+}
+
+h1::after,
+h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent);
+  margin: 0.5rem auto 0;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--primary); /* Correctly uses primary */
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+textarea,
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: "Courier New", monospace;
+  background-color: var(--input-bg);
+  color: var(
+    --primary
+  ); /* FIX: Input text color should be primary (black/white) */
+  transition: var(--transition);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 4px 4px 0px var(--accent);
+  border-color: var(--accent);
+}
+
+/* Hover style for input elements */
+input:hover,
+textarea:hover {
+  background-color: var(--secondary);
+  box-shadow: 2px 2px 0px var(--accent);
+  transform: translate(-1px, -1px);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder-color);
+  opacity: 0.7;
+}
+
+button {
+  width: 100%;
+  background-color: var(--accent);
+  color: var(--secondary);
+  border: 2px solid var(--primary);
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  color: var(--secondary);
+  transform: translate(-3px, -3px);
+  /* FIX: Use generic shadow color variable */
+  box-shadow: 6px 6px 0px var(--shadow-color);
+}
+
+/* Message styling */
+#auth-message,
+#register-message {
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  min-height: 1rem;
+  transition: var(--transition);
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 2px solid #c62828;
+}
+
+.success-message {
+  background-color: #e8f5e8;
+  color: var(--success-color);
+  border: 2px solid var(--success-color);
+}
+
+/* Footer and Links */
+.footer-links a,
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer-links a:hover,
+.footer a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.footer {
+  text-align: center;
+  color: var(--text-color); /* FIX: Use text-color variable */
+  font-size: 0.95rem;
+  border-top: 1px solid var(--text-color); /* FIX: Use text-color or input-bg for dark mode contrast */
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+/* ==================================== */
+/* VISUAL TOGGLE SWITCH STYLES (NEW)    */
+/* ==================================== */
+
+.theme-switch-wrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Hide default HTML checkbox */
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider track */
+.theme-switch .slider {
+  cursor: pointer;
+  width: 50px;
+  height: 24px;
+  background-color: var(--text-color);
+  transition: var(--transition);
+  border-radius: 34px;
+  position: relative;
+  border: 2px solid var(--primary);
+  box-shadow: 2px 2px 0px var(--primary);
+}
+
+/* The sliding circle (knob) */
+.theme-switch .slider:before {
+  position: absolute;
+  content: "🌙";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  /* FIX: Set bottom to 0 to align with 24px height track */
+  bottom: 0px;
+  background-color: var(--secondary);
+  color: #f4d03f;
+  transition: var(--transition);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+}
+
+/* When the checkbox is CHECKED (Dark Mode is ON) */
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+  content: "☀️";
+  color: #fff89d;
+}
+
+/* Dark Mode Overrides for the Switch (Using data-theme) */
+html[data-theme="dark"] .theme-switch .slider {
+  border-color: var(--primary);
+  /* FIX: Use generic shadow-color variable */
+  box-shadow: 2px 2px 0px var(--shadow-color);
+  background-color: var(--input-bg);
+}
+
+html[data-theme="dark"] input:checked + .slider {
+  background-color: var(--accent);
+}

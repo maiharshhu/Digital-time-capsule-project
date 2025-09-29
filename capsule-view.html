@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Capsule - Digital Time Capsule</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/capsule-view.css" />
+</head>
+
+<body>
+    <header>
+        <div class="logo">Digital Time capsule</div>
+        <div class="user-info">
+            <button id="backToDashboardBtn">← Dashboard</button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <main class="view-main">
+        <section id="capsuleContentArea" class="capsule-display-card">
+
+            <h1 id="capsuleTitle">Loading Capsule...</h1>
+            <p class="status-message" id="statusMessage">Checking unlock status...</p>
+
+            <div id="lockedMessage" class="message-box locked hidden">
+                <p>This capsule is sealed until its unlock date.</p>
+                <p>**Unlock Date:** <span id="unlockDateLocked"></span></p>
+                <p>Patience, your future self is waiting!</p>
+                <br>
+                <video src="https://media.tenor.com/MdU7Bmr5Oz8AAAPo/patiently-waiting-waiting.mp4" autoplay loop muted
+                    width="100%"></video>
+            </div>
+
+            <div id="unlockedContent" class="message-box unlocked hidden">
+                <p class="date-header">Opened on: <span id="openDateActual"></span></p>
+                <img id="capsuleImage" src="" alt="Capsule Image" class="capsule-image hidden">
+
+                <div class="content-box">
+                    <h3>Your Message:</h3>
+                    <p id="capsuleMessage"></p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="./js/darkmode.js"></script>
+    <script type="module" src="js/capsule-view.js"></script>
+</body>
+
+</html>

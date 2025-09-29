@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Digital Time Capsule</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <header>
+        <div class="logo">Digital Time capsule
+            <span><label class="theme-switch" for="checkbox-toggle">
+                    <input type="checkbox" id="checkbox-toggle" placeholder="none" />
+                    <div class="slider round" id="themeToggleBtn"></div>
+                </label>
+            </span>
+        </div>
+
+        <div class="user-info">
+            Logged in as: <span id="userEmail"></span> <button id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <section id="myCapsulesView" class="capsule-grid-container">
+            <h2>My Capsules</h2>
+            <a href="#formTitle" class="btn btn-primary" id="scrollToCreateBtn">
+                New Time Capsule
+            </a>
+            <div id="capsuleContainer" class="capsule-grid"></div>
+        </section>
+        <br>
+        <br>
+
+        <section id="createCapsuleView" class="capsule-grid-container">
+            <div class="container">
+                <h2 id="formTitle">Create New Time Capsule 🔖</h2>
+
+                <form id="newCapsuleForm">
+                    <div class="form-group">
+                        <label for="capsuleTitle">Title</label>
+                        <input type="text" id="capsuleTitle" placeholder="Name your time capsule" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capsuleMessage">Message</label>
+                        <textarea id="capsuleMessage" placeholder="Write a message to your future self..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="openDate">Open Date</label>
+                        <input type="datetime-local" id="openDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capsuleImageURL">Image URL (Optional)</label>
+                        <input type="text" id="capsuleImageURL" placeholder="Paste a public image link here">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="saveCapsuleBtn">Create Time Capsule</button>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-secondary" id="cancelCreateBtn">Cancel</button>
+                    <div id="messageAlertContainer" class="alert-container hidden">
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="./js/darkmode.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <!-- <script type="module" src="js/create-capsule.js"></script> -->
+</body>
+
+</html>

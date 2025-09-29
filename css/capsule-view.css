@@ -1,0 +1,121 @@
+/* capsule-view.css */
+
+.view-main {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 3rem auto;
+}
+
+.capsule-display-card {
+  background-color: var(--secondary);
+  border: 3px solid var(--primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.capsule-display-card h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.status-message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: var(--accent);
+}
+
+/* Common message box style */
+.message-box {
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  text-align: left;
+  margin-top: 2rem;
+}
+
+/* Locked State Styles */
+.locked {
+  background-color: var(--light-gray);
+  border: 2px dashed #999;
+  color: var(--dark-gray);
+  text-align: center;
+}
+
+.locked h2 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+#unlockDateLocked {
+  font-size: 1.1rem;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Unlocked State Styles */
+.unlocked {
+  background-color: var(--light-gray);
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 10px rgba(255, 94, 91, 0.5); /* Soft glow */
+}
+
+.date-header {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.capsule-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--primary);
+  margin-bottom: 2rem;
+}
+
+.content-box {
+  padding: 1.5rem;
+  background-color: var(--secondary);
+  border: 1px solid var(--dark-gray);
+  border-radius: 8px;
+}
+
+.content-box h3 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+}
+
+#capsuleMessage {
+  white-space: pre-wrap; /* Preserves line breaks from textarea */
+  line-height: 1.6;
+  color: var(--primary);
+}
+
+/* Utility to toggle visibility */
+.hidden {
+  display: none !important;
+}
+
+/* Dark Mode Adjustments for the View Page */
+html[data-theme="dark"] .capsule-display-card {
+  background-color: var(--secondary);
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="dark"] .unlocked {
+  background-color: var(--light-gray);
+  border-color: var(--accent);
+}
+
+html[data-theme="dark"] .content-box {
+  background-color: var(--secondary);
+  border-color: var(--dark-gray);
+}
